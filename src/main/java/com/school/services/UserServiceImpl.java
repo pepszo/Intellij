@@ -26,4 +26,6 @@ public class UserServiceImpl implements UserService{
     public Set<User> getAllStuds() {
         return new HashSet<>((Collection<User>) uR.getAllStuds());
     }
+
+    public User saveUser(User user){ return uR.save(user); }
 }
