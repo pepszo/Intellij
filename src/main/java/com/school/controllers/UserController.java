@@ -18,4 +18,10 @@ public class UserController {
     public Set<User> getAllUsers(){
         return uSI.getAllUsers();
     }
+
+    @GetMapping("/users/profs")
+    public Set<User> getAllProfs() { return uSI.getAllProfs(); }
+
+    @GetMapping("/users/studs")
+    public Set<User> getAllStuds() { return uSI.getAllStuds(); }
 }

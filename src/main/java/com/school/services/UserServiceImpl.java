@@ -16,7 +16,14 @@ public class UserServiceImpl implements UserService{
     private UserRepo uR;
 
     public Set<User> getAllUsers() {
-        Set<User> user = new HashSet<>((Collection<User>) uR.getAllUsers());
-        return user;
+        return new HashSet<>((Collection<User>) uR.findAll());
+    }
+
+    public Set<User> getAllProfs() {
+        return new HashSet<>((Collection<User>) uR.getAllProfs());
+    }
+
+    public Set<User> getAllStuds() {
+        return new HashSet<>((Collection<User>) uR.getAllStuds());
     }
 }
