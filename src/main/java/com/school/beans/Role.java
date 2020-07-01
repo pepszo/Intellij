@@ -1,16 +1,18 @@
 package com.school.beans;
 
-import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 import javax.persistence.*;
 import java.util.Set;
 
 @Entity
 @Table(name = "roles")
-/*@JsonIdentityInfo(
-        generator = ObjectIdGenerator.PropertyGenerator.class,
+@JsonIdentityInfo(
+        generator = ObjectIdGenerators.PropertyGenerator.class,
         property = "idRole"
-)*/
+)
 public class Role {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -20,7 +22,6 @@ public class Role {
     @Column(name = "label")
     private String label;
 
-    @JsonManagedReference
     @OneToMany(mappedBy = "role", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     public Set<User> users;
 
@@ -47,6 +48,7 @@ public class Role {
         this.label = label;
     }
 
+    @JsonIgnore
     public Set<User> getUsers() {
         return users;
     }

@@ -1,15 +1,16 @@
 package com.school.beans;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 import javax.persistence.*;
 
 @Entity
 @Table(name = "users")
-/*@JsonIdentityInfo(
-        generator = ObjectIdGenerator.PropertyGenerator.class,
+@JsonIdentityInfo(
+        generator = ObjectIdGenerators.PropertyGenerator.class,
         property = "idUser"
-)*/
+)
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -28,10 +29,10 @@ public class User {
     @Column(name = "pass")
     private String pass;
 
-    @JsonBackReference
     @ManyToOne(cascade = {CascadeType.MERGE})
     @JoinColumn(name = "idRole", nullable = false)
     private Role role;
+
 
     public User() {
     }
