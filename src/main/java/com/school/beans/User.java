@@ -30,8 +30,20 @@ public class User {
 
     @JsonBackReference
     @ManyToOne(cascade = {CascadeType.MERGE})
-    @JoinColumn(name = "idRole")
+    @JoinColumn(name = "idRole", nullable = false)
     private Role role;
+
+    public User() {
+    }
+
+    public User(int idUser, String lastName, String firstName, String email, String pass, Role role) {
+        this.idUser = idUser;
+        this.lastName = lastName;
+        this.firstName = firstName;
+        this.email = email;
+        this.pass = pass;
+        this.role = role;
+    }
 
     public int getIdUser() {
         return idUser;
