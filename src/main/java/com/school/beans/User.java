@@ -86,6 +86,7 @@ public class User {
         this.pass = pass;
     }
 
+
     public Role getRole() {
         return role;
     }

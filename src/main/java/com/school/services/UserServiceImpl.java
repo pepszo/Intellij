@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.Collection;
 import java.util.HashSet;
+import java.util.Optional;
 import java.util.Set;
 
 @Service
@@ -27,7 +28,27 @@ public class UserServiceImpl implements UserService{
         return uR.getAllStuds();
     }
 
+
     public User saveUser(User user){
         return uR.save(user);
+    }
+
+    public Optional<User> getUserById(int idUser){
+        return uR.findById(idUser);
+    }
+
+    public User updateUser(User updatedUser, int idUser){
+        User oldUser = new User();
+        oldUser = uR.findById(idUser).orElse(null);
+        oldUser.setRole(updatedUser.getRole());
+        oldUser.setEmail(updatedUser.getEmail());
+        oldUser.setFirstName(updatedUser.getFirstName());
+        oldUser.setLastName(updatedUser.getLastName());
+        oldUser.setPass(updatedUser.getPass());
+        return uR.save(oldUser);
+    }
+
+    public void deleteUser(int idUser){
+        uR.deleteById(idUser);
     }
 }
