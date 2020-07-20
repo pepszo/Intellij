@@ -87,7 +87,8 @@ public class JWTWebSecurityConfig extends WebSecurityConfigurerAdapter {
             .ignoring()
             .antMatchers(
                 HttpMethod.GET,
-                "/index.html" //Other Stuff You want to Ignore
+                "/index.html", "/user/all"//Other Stuff You want to Ignore
+
             )
             .and()
             .ignoring()
