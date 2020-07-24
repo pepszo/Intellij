@@ -3,12 +3,10 @@ package com.school.services;
 import com.school.beans.User;
 import com.school.repositories.UserRepo;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 
-import java.util.Collection;
-import java.util.HashSet;
-import java.util.Optional;
-import java.util.Set;
+import java.util.*;
 
 @Service
 public class UserServiceImpl implements UserService{
@@ -16,8 +14,8 @@ public class UserServiceImpl implements UserService{
     @Autowired
     private UserRepo uR;
 
-    public Set<User> getAllUsers() {
-        return new HashSet<>((Collection<User>) uR.findAll());
+    public List<User> getAllUsers() {
+        return new ArrayList<>((Collection<User>) uR.findAll());
     }
 
     public Set<User> getAllProfs() {
@@ -30,7 +28,13 @@ public class UserServiceImpl implements UserService{
 
 
     public User saveUser(User user){
-        return uR.save(user);
+        try{
+            user.setPass(user.getPass());
+            return uR.save(user);
+        }catch (DataIntegrityViolationException e){
+            throw new DataIntegrityViolationException("Email already exists");
+        }
+
     }
 
     public Optional<User> getUserById(int idUser){
@@ -41,7 +45,13 @@ public class UserServiceImpl implements UserService{
         User oldUser = new User();
         oldUser = uR.findById(idUser).orElse(null);
         oldUser.setRole(updatedUser.getRole());
-        oldUser.setEmail(updatedUser.getEmail());
+
+        try{
+            oldUser.setEmail(updatedUser.getEmail());
+        }catch (DataIntegrityViolationException e){
+            throw new DataIntegrityViolationException("Email already exists");
+        }
+
         oldUser.setFirstName(updatedUser.getFirstName());
         oldUser.setLastName(updatedUser.getLastName());
         oldUser.setPass(updatedUser.getPass());

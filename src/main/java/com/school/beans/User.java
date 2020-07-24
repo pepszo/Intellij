@@ -2,6 +2,7 @@ package com.school.beans;
 
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+import com.school.services.Password;
 
 import javax.persistence.*;
 
@@ -83,7 +84,9 @@ public class User {
     }
 
     public void setPass(String pass) {
-        this.pass = pass;
+        Password p = new Password(pass);
+        p.firstHash();
+        this.pass = p.getHash();
     }
 
 

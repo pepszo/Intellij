@@ -5,6 +5,7 @@ import com.school.services.UserServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 
@@ -17,7 +18,7 @@ public class UserController {
     private UserServiceImpl uSI;
 
     @GetMapping("/all")
-    private Set<User> getAllUsers(){
+    private List<User> getAllUsers(){
         return uSI.getAllUsers();
     }
 
